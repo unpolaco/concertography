@@ -1,22 +1,25 @@
+import Image from 'next/image'
 import styles from './page.module.css'
-import getResults from '@/utils/getImagesData'
+import { Form } from '@/components/Form/Form'
+import { Lightbox } from '@/components/Lightbox/Lightbox'
 
-
-export default async function Home () {
-const {imagesData, bandNames, genries, eventPlaces, cities} = await getResults()
+export default async function Home() {
+  
 
   return (
     <>
       <main className={styles.main}>
         <div>
-          <form id="searchForm">
-            <label htmlFor="search">Looking for something?</label>
-            <input type='text' id="search" name="search" />
-            <button type='submit' form='searchForm'>Search</button>
-          </form>
+          <Lightbox />
+          <Form />
           <div className={styles.imageWrapper}>
+            <Image
+              className={styles.image}
+              src={`https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/v1688113468/concerts/Masala_Soundsystem-Ostroda_Reggae_Festiwal-Ostroda-other--04.jpg`}
+              fill
+              alt='masala soundsystem'
+            />
           </div>
-            <p>{...bandNames}</p>
         </div>
       </main>
     </>
