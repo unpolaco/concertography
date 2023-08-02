@@ -1,7 +1,8 @@
 'use client'
-
 import Image from "next/image"
 import { FC, useEffect, useRef, useState } from "react"
+import { Icon } from "semantic-ui-react"
+import styles from './Lightbox.module.css'
 
 interface LightboxProps {
   imagePaths: string[]
@@ -31,7 +32,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
     resetTimeout()
     timeoutRef.current = setTimeout(() => {
       goForward(currentIndex)
-    }, 3000)
+    }, 5000)
 
     window.addEventListener('keydown', keyboardHandler)
     return () => {
@@ -40,7 +41,6 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
     }
   }, [currentIndex])
 
-  const currentImgSrc = (currentIndex: number, imagePaths: string[]) => `https://res.cloudinary.com/dalhkr6p8/image/upload/v1688113468/${imagePaths[currentIndex]}`
 
   const goForward = (currentIndex: number) => {
     if (currentIndex < imagePaths.length - 1) {
@@ -65,14 +65,24 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
 
   return (
     <div>
-      <button onClick={() => goBack(currentIndex)} disabled={isButtonDisabled('prev')}>back</button>
-      <Image
-        src={currentImgSrc(currentIndex, imagePaths)}
-        alt='concert'
-        width={800}
-        height={600}
-      />
-      <button onClick={() => goForward(currentIndex)} disabled={isButtonDisabled('next')}>next</button>
+      <button className={styles.button} onClick={() => goBack(currentIndex)} disabled={isButtonDisabled('prev')}>
+        <Icon name='chevron left' size='huge' />
+      </button>
+      {imagePaths.map((imagePath, index) => (
+        <Image
+          key={index}
+          src={`https://res.cloudinary.com/dalhkr6p8/image/upload/v1688113468/${imagePath}`}
+          alt='concert'
+          width={800}
+          height={600}
+          className={`${styles.image} ${index === currentIndex ? styles.active : ''}`}
+        />
+      ))}
+      <button className={`${styles.button} ${styles.buttonRight}`} onClick={() => goForward(currentIndex)} disabled={isButtonDisabled('next')}>
+        <Icon name='chevron right' size='huge' />
+      </button>
     </div>
   )
 }
+
+
