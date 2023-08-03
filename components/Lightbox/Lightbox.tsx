@@ -64,8 +64,8 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   }
 
   return (
-    <div>
-      <button className={styles.button} onClick={() => goBack(currentIndex)} disabled={isButtonDisabled('prev')}>
+    <>
+      <button className={`${styles.button} ${styles.buttonLeft}`} onClick={() => goBack(currentIndex)} disabled={isButtonDisabled('prev')}>
         <Icon name='chevron left' size='huge' />
       </button>
       {imagePaths.map((imagePath, index) => (
@@ -73,15 +73,14 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
           key={index}
           src={`https://res.cloudinary.com/dalhkr6p8/image/upload/v1688113468/${imagePath}`}
           alt='concert'
-          width={800}
-          height={600}
+          fill
           className={`${styles.image} ${index === currentIndex ? styles.active : ''}`}
         />
       ))}
       <button className={`${styles.button} ${styles.buttonRight}`} onClick={() => goForward(currentIndex)} disabled={isButtonDisabled('next')}>
         <Icon name='chevron right' size='huge' />
       </button>
-    </div>
+    </>
   )
 }
 

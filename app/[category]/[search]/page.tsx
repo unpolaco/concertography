@@ -7,21 +7,14 @@ export default async function Page({ params }) {
     const { images } = await getResults()
 
     const getFilteredImagePaths = (category: Category, search: string, images: ImageType[]) => {
+        const searchPhrase = search.replaceAll('%20', ' ').toLowerCase()
         const filteredPublicIds = images
-            .filter((image) => (image[category]).toString().toLowerCase() === search.toLowerCase())
+            .filter((image) => (image[category]).toString().toLowerCase() === searchPhrase)
             .map(image => `${image.publicId}.${image.format}`)
         return filteredPublicIds
     }
-
     const filteredImagePaths = getFilteredImagePaths(params.category as Category, params.search, images)
 
-
-    return (
-        <>
-            <div>{params.category}</div>
-            <div>{params.search}</div>
-            <Lightbox imagePaths={filteredImagePaths} />
-        </>
-    )
+    return <Lightbox imagePaths={filteredImagePaths} />
 }
 

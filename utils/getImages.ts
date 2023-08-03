@@ -4,8 +4,6 @@ import cloudinary from './cloudinaryConfig'
 // A-band, B-eventPlace, C-city, D-genre, E-number
 // No Polish characters
 
-
-
 export interface Image {
   assetId: string,
   folder: string,
@@ -17,7 +15,7 @@ export interface Image {
   secureUrl: string,
   publicId: string,
   band: string,
-  eventPlace: string,
+  place: string,
   city: string,
   genre: string
 }
@@ -26,7 +24,7 @@ export const getResults = async () => {
   let images: Image[] = [];
   const { resources } = await cloudinary.v2.search
     .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
-    .sort_by('public_id', 'desc')
+    .sort_by('public_id', 'asc')
     .max_results(400)
     .execute()
 
@@ -44,22 +42,23 @@ export const getResults = async () => {
       aspectRatio: result.aspect_ratio,
       secureUrl: result.secure_url,
       publicId: result.public_id,
-      band: splitted[0].replace('_', ' '),
-      eventPlace: splitted[1].replace('_', ' '),
-      city: splitted[2].replace('_', ' '),
-      genre: splitted[3].replace('_', ' ')
+      band: splitted[0].replaceAll('_', ' '),
+      place: splitted[1].replaceAll('_', ' '),
+      city: splitted[2].replaceAll('_', ' '),
+      genre: splitted[3].replaceAll('_', ' ')
     })
     i++
   }
   images = filteredResults
   const bandNames = () => [...new Set(images.map(result => result.band))]
-  const eventPlaces = () => [...new Set(images.map(result => result.eventPlace))]
+  const places = () => [...new Set(images.map(result => result.place))]
   const cities = () => [...new Set(images.map(result => result.city))]
   const genries = () => [...new Set(images.map(result => result.genre))]
+  
   return {
     images,
     bandNames: bandNames(),
-    eventPlaces: eventPlaces(),
+    places: places(),
     cities: cities(),
     genries: genries()
   }

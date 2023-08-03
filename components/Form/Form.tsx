@@ -1,30 +1,57 @@
 'use client'
-import { FC, FormEvent, useState } from "react"
+import { FC, SyntheticEvent, useState } from "react"
 import { RadioButton } from "../RadioButton/RadioButton"
-import { Image } from "@/utils/getImages"
 import { useRouter } from 'next/navigation'
+import { Dropdown, DropdownProps } from "semantic-ui-react"
 
-export const Form: FC = () => {
-    const [radioBtnValue, setRadioBtnValue] = useState<keyof Image>('band')
-    const [inputValue, setInputValue] = useState('')
-    const handleRadioChange = (value: keyof Image) => setRadioBtnValue(value)
-    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)
+interface FormProps {
+    bandNames: string[];
+    places: string[];
+    cities: string[];
+    genries: string[];
+}
+export type Category = 'band' | 'place' | 'city' | 'genre'
+
+export const Form: FC<FormProps> = ({ bandNames, places, cities, genries }) => {
+    const [radioBtnValue, setRadioBtnValue] = useState<Category>('band')
+    const handleRadioChange = (value: Category) => setRadioBtnValue(value)
     const router = useRouter()
 
+    const handleSubmit = (_e: SyntheticEvent, data: DropdownProps) => router.push(`/${radioBtnValue}/${data.value}`)
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        inputValue.replace(' ', '_')
-        router.push(`${radioBtnValue}/${inputValue}`)
+    const convertToDropdownData = (data: string[]) => {
+        data.sort()
+        const arr = []
+        for (const element of data) {
+            arr.push({ text: element, value: element })
+        }
+        return arr
     }
 
+    const getAppropiateDataFromRadioBtn = (value: Category) => {
+        switch (value) {
+            case 'band':
+                return bandNames;
+            case 'place':
+                return places;
+            case 'city':
+                return cities;
+            case 'genre':
+                return genries;
+        }
+    }
 
     return (
-        <form id="searchForm" onSubmit={handleSubmit}>
-            <label htmlFor="search">Looking for something?</label>
-            <input type='text' id="search" name="search" onChange={(e) => handleInputChange(e)} />
+        <form >
+            <Dropdown
+                placeholder={`Choose ${radioBtnValue} to display`}
+                fluid
+                search
+                selection
+                options={convertToDropdownData(getAppropiateDataFromRadioBtn(radioBtnValue))}
+                onChange={handleSubmit}
+            />
             <RadioButton onChange={handleRadioChange} radioBtnValue={radioBtnValue} />
-            <button type='submit' form='searchForm'>Search</button>
         </form>
     )
 }

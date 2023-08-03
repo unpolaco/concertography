@@ -1,0 +1,7 @@
+.radioBtnWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+    color:white;
+    margin-top: 10px;
+}

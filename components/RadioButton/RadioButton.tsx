@@ -1,28 +1,30 @@
-import { Image } from "@/utils/getImages"
 import { FC } from "react"
+import { Category } from "../Form/Form"
+import styles from './RadioButton.module.css'
 
 interface RadioButtonProps {
-    onChange: (value: keyof Image) => void
-    radioBtnValue: keyof Image
+    onChange: (value: Category) => void
+    radioBtnValue: Category
 }
 
-export const RadioButton: FC<RadioButtonProps> = ({onChange, radioBtnValue}) => {
+export const RadioButton: FC<RadioButtonProps> = ({ onChange, radioBtnValue }) => {
+    const categories: Category[] = ['band', 'place', 'city', 'genre']
     const isChecked = (value: string) => value === radioBtnValue
-    const radioHandler = (e: React.ChangeEvent<HTMLInputElement>) =>  {
-        const value = e.currentTarget.value as keyof Image
+    const radioHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value as Category
         onChange(value)
     }
-    
+
     return (
-        <div>
-            <input type='radio' id='band' value='band' checked={isChecked('band')} onChange={(e)=>radioHandler(e)} />
-            <label htmlFor='band'>band</label>
-            <input type='radio' id='place' value='place' checked={isChecked('place')} onChange={(e)=>radioHandler(e)} />
-            <label htmlFor='place' >place</label>
-            <input type='radio' id='city' value='city' checked={isChecked('city')} onChange={(e)=>radioHandler(e)} />
-            <label htmlFor='city' >city</label>
-            <input type='radio' id='genre' value='genre' checked={isChecked('genre')} onChange={(e)=>radioHandler(e)} />
-            <label htmlFor='genre' >genre</label>
+        <div className={styles.radioBtnWrapper}>
+            {
+                categories.map((category: Category) => {
+                    return <div key={category} className={styles.radioBtnWrapper}>
+                        <input type='radio' id={category} value={category} checked={isChecked(category)} onChange={(e) => radioHandler(e)} />
+                        <label htmlFor={category}>{category}</label>
+                    </div>
+                })
+            }
         </div>
     )
 }

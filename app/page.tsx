@@ -1,17 +1,10 @@
 import Image from 'next/image'
 import styles from './page.module.css'
-import { Form } from '@/components/Form/Form'
-import { Lightbox } from '@/components/Lightbox/Lightbox'
 
 export default async function Home() {
-  
-
   return (
-    <>
       <main className={styles.main}>
         <div>
-          <Lightbox />
-          <Form />
           <div className={styles.imageWrapper}>
             <Image
               className={styles.image}
@@ -22,6 +15,5 @@ export default async function Home() {
           </div>
         </div>
       </main>
-    </>
   )
 }
