@@ -3,6 +3,7 @@ import Image from "next/image"
 import { FC, useEffect, useRef, useState } from "react"
 import { Icon } from "semantic-ui-react"
 import styles from './Lightbox.module.css'
+import { PlayButtons } from "../PlayButtons/PlayButtons"
 
 interface LightboxProps {
   imagePaths: string[]
@@ -10,6 +11,12 @@ interface LightboxProps {
 
 export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [duration, setDuration] = useState(5)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const handleSetDuration = (duration: number) => setDuration(duration)
+  const handlesetIsPaused = () => setIsPaused(!isPaused)
+
   let timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const resetTimeout = () => {
@@ -29,17 +36,19 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   }
 
   useEffect(() => {
-    resetTimeout()
-    timeoutRef.current = setTimeout(() => {
-      goForward(currentIndex)
-    }, 5000)
-
+    if(!isPaused) {
+      resetTimeout()
+      timeoutRef.current = setTimeout(() => {
+        goForward(currentIndex)
+      }, duration*1000)
+    }
+      
     window.addEventListener('keydown', keyboardHandler)
     return () => {
       resetTimeout()
       window.removeEventListener('keydown', keyboardHandler)
     }
-  }, [currentIndex])
+  }, [currentIndex, duration, isPaused])
 
 
   const goForward = (currentIndex: number) => {
@@ -80,6 +89,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
       <button className={`${styles.button} ${styles.buttonRight}`} onClick={() => goForward(currentIndex)} disabled={isButtonDisabled('next')}>
         <Icon name='chevron right' size='huge' />
       </button>
+      <PlayButtons isPaused={isPaused} duration={duration} setDuration={handleSetDuration} setIsPaused={handlesetIsPaused} />
     </>
   )
 }

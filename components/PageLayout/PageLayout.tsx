@@ -1,17 +1,16 @@
 import { getResults } from "@/utils/getImages"
-import { Form } from "../Form/Form"
 import styles from './PageLayout.module.css'
+import { Form } from "../Form/Form"
 
 export default async function PageLayout({
-    children,
+    children
 }: {
     children: React.ReactNode
 }) {
-    const { bandNames, genries, places, cities } = await getResults()
-    
+    const { results } = await getResults()
     return (
         <main className={styles.main}>
-            <Form bandNames={bandNames} genries={genries} cities={cities} places={places} />
+            <Form results={results} />
             {children}
         </main>
     )

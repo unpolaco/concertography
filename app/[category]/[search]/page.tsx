@@ -4,7 +4,7 @@ import { Image as ImageType, getResults } from "@/utils/getImages"
 
 //@ts-ignore
 export default async function Page({ params }) {
-    const { images } = await getResults()
+    const { results: { images } } = await getResults()
 
     const getFilteredImagePaths = (category: Category, search: string, images: ImageType[]) => {
         const searchPhrase = search.replaceAll('%20', ' ').toLowerCase()
