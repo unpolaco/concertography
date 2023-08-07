@@ -19,9 +19,11 @@ export const RadioButton: FC<RadioButtonProps> = ({ onChange, radioBtnValue }) =
         <div className={styles.radioBtnWrapper}>
             {
                 categories.map((category: Category) => {
-                    return <div key={category} className={styles.radioBtnWrapper}>
-                        <input type='radio' id={category} value={category} checked={isChecked(category)} onChange={(e) => radioHandler(e)} />
-                        <label htmlFor={category}>{category}</label>
+                    return <div key={category} 
+                    className={styles.radioBtnWithLabel}
+                    >
+                        <input type='radio' id={category} value={category} checked={isChecked(category)} onChange={(e) => radioHandler(e)} className={styles.radioBtn}/>
+                        <label htmlFor={category} className={styles.label}>{category}</label>
                     </div>
                 })
             }

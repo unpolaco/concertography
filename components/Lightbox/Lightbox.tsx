@@ -12,7 +12,7 @@ interface LightboxProps {
 export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [duration, setDuration] = useState(5)
-  const [isPaused, setIsPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(true)
 
   const handleSetDuration = (duration: number) => setDuration(duration)
   const handlesetIsPaused = () => setIsPaused(!isPaused)

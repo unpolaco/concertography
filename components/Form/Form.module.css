@@ -3,6 +3,11 @@
     flex-direction: column;
     align-items: center;
     color: white;
+    opacity: 30%;
+}
+
+.mainWrapperClosed:hover {
+    opacity: 100%;
 }
 
 .mainWrapperOpened {
@@ -19,7 +24,7 @@
 }
 
 .formWrapperClosed {
-    transform: scale(50%); 
+    transform: scale(50%);
     transform: translateY(-100px);
     opacity: 0;
     height: 0;
@@ -27,21 +32,42 @@
     animation: closeForm .5s ease-out;
 }
 
+.dropdownWrapper {
+    display: flex;
+}
+
 .icon {
     cursor: pointer;
+}
+
+.button {
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgba(100, 100, 100, 0);
+    cursor: pointer;
+    margin-left: 15px;
+    width: 100px;
+}
+
+.button:hover {
+    background-color: rgba(100, 100, 100, .3);
 }
 
 @keyframes closeForm {
     0% {
         opacity: 1;
         filter: blur(0);
-        transform: scale(0); 
+        transform: scale(0);
         transform: translateY(0);
         margin-bottom: 30px;
 
     }
+
     100% {
-        transform: scale(50%); 
+        transform: scale(50%);
         transform: translateY(-100px);
         opacity: 0;
         filter: blur(20px);
@@ -49,19 +75,20 @@
         height: 0;
 
     }
-  }
+}
 
 @keyframes openForm {
     0% {
-        transform: scale(50%); 
+        transform: scale(50%);
         transform: translateY(-100px);
         opacity: 0;
         filter: blur(20px);
     }
+
     100% {
         opacity: 1;
         filter: blur(0);
-        transform: scale(0); 
+        transform: scale(0);
         transform: translateY(0);
     }
-  }
+}

@@ -11,8 +11,9 @@ interface FormProps {
 }
 export type Category = 'band' | 'place' | 'city' | 'genre'
 
-export const Form: FC<FormProps> = ({ results: {bandNames, cities, places, genries}}) => {
+export const Form: FC<FormProps> = ({ results: { bandNames, cities, places, genries } }) => {
     const [radioBtnValue, setRadioBtnValue] = useState<Category>('band')
+    const [option, setOption] = useState<string | undefined>(undefined)
     const [isFormOpen, setIsFormOpen] = useState(true)
 
     const handleRadioChange = (value: Category) => {
@@ -21,7 +22,15 @@ export const Form: FC<FormProps> = ({ results: {bandNames, cities, places, genri
     }
     const router = useRouter()
 
-    const handleSubmit = (_e: SyntheticEvent, data: DropdownProps) => router.push(`/${radioBtnValue}/${data.value}`)
+    const handleChange = (e: SyntheticEvent, data: DropdownProps) => {
+        e.preventDefault()
+        setOption(data.value as string | undefined)
+    }
+    const handleSubmit = (e: SyntheticEvent) => {
+        e.preventDefault()
+        if (option !== undefined)
+            router.push(`/${radioBtnValue}/${option}`)
+    }
 
     const convertToDropdownData = (data: string[]) => {
         data.sort()
@@ -50,18 +59,21 @@ export const Form: FC<FormProps> = ({ results: {bandNames, cities, places, genri
     return (
         <div className={isFormOpen ? styles.mainWrapperOpened : styles.mainWrapperClosed}>
             <form className={isFormOpen ? styles.formWrapperOpened : styles.formWrapperClosed}>
-                <Dropdown
-                    placeholder={`Choose ${radioBtnValue} to display`}
-                    fluid
-                    search
-                    selection
-                    options={convertToDropdownData(getAppropiateDataFromRadioBtn(radioBtnValue))}
-                    onChange={handleSubmit}
-                    disabled={!isFormOpen}
-                />
+                <div className={styles.dropdownWrapper}>
+                    <Dropdown
+                        placeholder={`Choose ${radioBtnValue} to display`}
+                        fluid
+                        search
+                        selection
+                        options={convertToDropdownData(getAppropiateDataFromRadioBtn(radioBtnValue))}
+                        onChange={handleChange}
+                        disabled={!isFormOpen}
+                    />
+                    <button className={styles.button} type="submit" onClick={(e)=>handleSubmit(e)}>Search</button>
+                </div>
                 <RadioButton onChange={handleRadioChange} radioBtnValue={radioBtnValue} />
             </form>
-            {!isFormOpen && <span>search options</span> }
+            {!isFormOpen && <span>search options</span>}
             <Icon name='angle double up' size='big' flipped={isFormOpen ? undefined : 'vertically'} onClick={handleOpenForm} className={styles.icon} />
         </div>
     )

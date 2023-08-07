@@ -2,6 +2,26 @@
     display: flex;
     justify-content: space-evenly;
     width: 500px;
-    color:white;
+    color: white;
     margin-top: 10px;
+}
+
+.radioBtn {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.radioBtnWithLabel {
+    display: flex;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.radioBtnWithLabel:hover {
+    background-color: rgba(100, 100, 100, 0.3);
+}
+
+.label {
+    cursor: pointer;
 }
