@@ -12,12 +12,13 @@ interface LightboxProps {
 export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [duration, setDuration] = useState(5)
-  const [isPaused, setIsPaused] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
 
   const handleSetDuration = (duration: number) => setDuration(duration)
   const handlesetIsPaused = () => setIsPaused(!isPaused)
 
   let timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  let imageStyle = 'styles.imageOnLoading'
 
   const resetTimeout = () => {
     if (timeoutRef.current) {
@@ -30,19 +31,22 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
         return goForward(currentIndex)
       case 'ArrowLeft':
         return goBack(currentIndex)
+      case ' ':
+        event.preventDefault()
+        return handlesetIsPaused()
       default:
         break;
     }
   }
 
   useEffect(() => {
-    if(!isPaused) {
+    if (!isPaused) {
       resetTimeout()
       timeoutRef.current = setTimeout(() => {
         goForward(currentIndex)
-      }, duration*1000)
+      }, duration * 1000)
     }
-      
+
     window.addEventListener('keydown', keyboardHandler)
     return () => {
       resetTimeout()
@@ -52,6 +56,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
 
 
   const goForward = (currentIndex: number) => {
+    imageStyle = 'styles.image'
     if (currentIndex < imagePaths.length - 1) {
       return setCurrentIndex(currentIndex + 1)
     }
