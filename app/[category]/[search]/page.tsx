@@ -16,5 +16,5 @@ export default async function Page({ params }) {
     const filteredImagePaths = getFilteredImagePaths(params.category as Category, params.search, images)
 
     return <Lightbox imagePaths={filteredImagePaths} />
-}
+} 
 

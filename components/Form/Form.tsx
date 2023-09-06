@@ -15,12 +15,12 @@ export const Form: FC<FormProps> = ({ results: { bandNames, cities, places, genr
     const [radioBtnValue, setRadioBtnValue] = useState<Category>('band')
     const [option, setOption] = useState<string | undefined>(undefined)
     const [isFormOpen, setIsFormOpen] = useState(true)
+    const router = useRouter()
 
     const handleRadioChange = (value: Category) => {
         if (isFormOpen)
             setRadioBtnValue(value)
     }
-    const router = useRouter()
 
     const handleChange = (e: SyntheticEvent, data: DropdownProps) => {
         e.preventDefault()
@@ -55,7 +55,6 @@ export const Form: FC<FormProps> = ({ results: { bandNames, cities, places, genr
     }
 
     const handleOpenForm = () => setIsFormOpen(!isFormOpen)
-
     return (
         <div className={isFormOpen ? styles.mainWrapperOpened : styles.mainWrapperClosed}>
             <form className={isFormOpen ? styles.formWrapperOpened : styles.formWrapperClosed}>
