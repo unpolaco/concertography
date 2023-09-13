@@ -1,0 +1,18 @@
+.buttonWrapper {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+}
+
+.button {
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgba(100, 100, 100, 0);
+    cursor: pointer;
+}
+.button:hover {
+    color: white;
+}
+

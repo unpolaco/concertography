@@ -1,9 +1,25 @@
 import { Category } from "@/components/Form/Form"
 import { Lightbox } from "@/components/Lightbox/Lightbox"
+import { NavBar } from "@/components/NavBar/NavBar"
 import { Image as ImageType, getResults } from "@/utils/getImages"
 
-//@ts-ignore
-export default async function Page({ params }) {
+interface Path {
+    category: Category
+    search: string
+}
+
+export async function generateStaticParams() {
+    const { results } = await getResults();
+    const categories: Category[] = ['band', 'place', 'city', 'genre'];
+    const params: Path[] = [];
+
+    categories.forEach((category) => {
+        params.push(...results.categories[category].map((searchParam) => ({ category, search: searchParam.replaceAll('%20', ' ').toLowerCase() })));
+    });
+    return params;
+}
+
+export default async function Page({ params }: { params: Path }) {
     const { results: { images } } = await getResults()
 
     const getFilteredImagePaths = (category: Category, search: string, images: ImageType[]) => {
@@ -14,7 +30,10 @@ export default async function Page({ params }) {
         return filteredPublicIds
     }
     const filteredImagePaths = getFilteredImagePaths(params.category as Category, params.search, images)
-
-    return <Lightbox imagePaths={filteredImagePaths} />
-} 
-
+    return (
+        <>
+            <NavBar about home/>
+            <Lightbox imagePaths={filteredImagePaths} />
+        </>
+    )
+}
