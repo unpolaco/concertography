@@ -1,8 +1,11 @@
-.mainWrapperClosed {
+.mainWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
+    z-index: 5;
+}
+.mainWrapperClosed {
     opacity: 30%;
 }
 
@@ -11,17 +14,14 @@
 }
 
 .mainWrapperOpened {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
+    opacity: 100%
 }
 
 .formWrapperOpened {
     margin-bottom: 30px;
     animation: openForm .5s ease-out;
 
-}
+}   
 
 .formWrapperClosed {
     transform: scale(50%);
@@ -50,10 +50,6 @@
     cursor: pointer;
     margin-left: 15px;
     width: 100px;
-}
-
-.button:hover {
-    background-color: rgba(100, 100, 100, .3);
 }
 
 @keyframes closeForm {

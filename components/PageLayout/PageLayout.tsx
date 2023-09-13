@@ -7,10 +7,10 @@ export default async function PageLayout({
 }: {
     children: React.ReactNode
 }) {
-    const { results } = await getResults()
+    const { results: { categories } } = await getResults()
     return (
         <main className={styles.main}>
-            <Form results={results} />
+                <Form categories={categories} />
             {children}
         </main>
     )

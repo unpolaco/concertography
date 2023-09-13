@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import styles from './ErrorPage.module.css'
-import errorImage from '@/public/assets/error.jpg'
+import backgroundPhoto from '@/public/assets/backgroundPhoto.jpg'
 import Link from 'next/link'
 
 export default function ErrorPage({ errorCode, reset }: { errorCode?: number, reset: () => void }) {
@@ -30,7 +30,7 @@ export default function ErrorPage({ errorCode, reset }: { errorCode?: number, re
                     }
                     <Link className={styles.button} href="/">Go to home page</Link>
                 </div>
-                <Image fill src={errorImage} alt='error' className={styles.errorPhoto} />
+                <Image fill src={backgroundPhoto} alt='error' className={styles.backgroundPhoto} />
             </div>
         </main>
     )

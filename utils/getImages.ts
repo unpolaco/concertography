@@ -1,6 +1,6 @@
 import cloudinary from './cloudinaryConfig'
 // Indios_Bravos-DK_Świt-Warszawa-reggae--01
-// FileName structure  AAA-BBB-CCC-DDD
+// FileName structure  AAA-BBB-CCC-DDD--EE
 // A-band, B-eventPlace, C-city, D-genre, E-number
 // No Polish characters
 
@@ -21,10 +21,14 @@ export interface Image {
 }
 export interface Results {
   images: Image[];
-  bandNames: string[];
-  places: string[];
-  cities: string[];
-  genries: string[];
+  categories: Categories
+}
+
+export interface Categories {
+  band: string[];
+  place: string[];
+  city: string[];
+  genre: string[];
 }
 interface GetResultsProps {
   results: Results
@@ -68,10 +72,12 @@ export const getResults : ()=>Promise<GetResultsProps> = async () => {
   return {
     results: {
       images,
-      bandNames: bandNames(),
-      places: places(),
-      cities: cities(),
-      genries: genries()
+      categories: {
+        band: bandNames(),
+        place: places(),
+        city: cities(),
+        genre: genries()
+      }
     }
   }
 }

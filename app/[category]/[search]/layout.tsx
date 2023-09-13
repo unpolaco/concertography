@@ -6,12 +6,8 @@ export default function BasicLayout({
   children: React.ReactNode
 }) {
   return (
-    <html>
-      <body >
-        <PageLayout >
-          {children}
-        </PageLayout>
-      </body>
-    </html>
+    <PageLayout >
+      {children}
+    </PageLayout>
   )
 }

@@ -1,0 +1,14 @@
+
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white; 
+    margin-top: 200px;
+}
+
+.nav{
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}

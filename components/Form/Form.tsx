@@ -4,14 +4,14 @@ import { RadioButton } from "../RadioButton/RadioButton"
 import { useRouter } from 'next/navigation'
 import { Dropdown, DropdownProps, Icon } from "semantic-ui-react"
 import styles from './Form.module.css'
-import { Results } from "@/utils/getImages"
+import { Categories } from "@/utils/getImages"
 
 interface FormProps {
-    results: Results
+    categories: Categories
 }
 export type Category = 'band' | 'place' | 'city' | 'genre'
 
-export const Form: FC<FormProps> = ({ results: { bandNames, cities, places, genries } }) => {
+export const Form: FC<FormProps> = ({categories}) => {
     const [radioBtnValue, setRadioBtnValue] = useState<Category>('band')
     const [option, setOption] = useState<string | undefined>(undefined)
     const [isFormOpen, setIsFormOpen] = useState(true)
@@ -41,22 +41,11 @@ export const Form: FC<FormProps> = ({ results: { bandNames, cities, places, genr
         return arr
     }
 
-    const getAppropiateDataFromRadioBtn = (value: Category) => {
-        switch (value) {
-            case 'band':
-                return bandNames;
-            case 'place':
-                return places;
-            case 'city':
-                return cities;
-            case 'genre':
-                return genries;
-        }
-    }
+    const getAppropiateDataFromRadioBtn = (value: Category) => categories[value]
 
     const handleOpenForm = () => setIsFormOpen(!isFormOpen)
     return (
-        <div className={isFormOpen ? styles.mainWrapperOpened : styles.mainWrapperClosed}>
+        <div className={`${styles.mainWrapper} ${isFormOpen ? styles.mainWrapperOpened : styles.mainWrapperClosed}`}>
             <form className={isFormOpen ? styles.formWrapperOpened : styles.formWrapperClosed}>
                 <div className={styles.dropdownWrapper}>
                     <Dropdown

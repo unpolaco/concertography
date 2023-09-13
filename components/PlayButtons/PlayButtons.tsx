@@ -13,6 +13,7 @@ interface PlayButtonsProps {
 
 export const PlayButtons: FC<PlayButtonsProps> = ({ isPaused, duration, setIsPaused, setDuration }) => {
     return (
+        <div className={styles.wrapper}>
         <div className={styles.buttonsWrapper}>
             <PlayPopup />
             <button className={`${styles.button} ${styles.playButton}`} onClick={() => setIsPaused()}>
@@ -25,6 +26,7 @@ export const PlayButtons: FC<PlayButtonsProps> = ({ isPaused, duration, setIsPau
             <button className={styles.button} onClick={() => setDuration(duration + 1)}>
                 <Icon name='plus' />
             </button  >
+        </div>
         </div>
     )
 }
