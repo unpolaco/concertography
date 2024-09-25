@@ -8,6 +8,6 @@ export const initialPhotos = [
     'concerts/Masala_Soundsystem-Ostroda_Reggae_Festiwal-Ostroda-other-01.jpg',
     'concerts/Danzinger-Poglos-Warszawa-punk-10.jpg',
     'concerts/Brandt-Poglos-Warszawa-other-8.jpg',
-    'concerts/TZN_Xenna-Poglos-Warszawa-punk-00.jpg',
+    'concerts/TZN_Xenna-Poglos-Warszawa-punk-0.jpg',
     'concerts/Kill_Your_Boyfriend-Chmury-Warszawa-other-6.jpg',
   ]

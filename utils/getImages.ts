@@ -1,6 +1,6 @@
 import cloudinary from './cloudinaryConfig'
-// Indios_Bravos-DK_Świt-Warszawa-reggae--01
-// FileName structure  AAA-BBB-CCC-DDD--EE
+// Indios_Bravos-DK_Świt-Warszawa-reggae-01
+// FileName structure  AAA-BBB-CCC-DDD-EE
 // A-band, B-eventPlace, C-city, D-genre, E-number
 // No Polish characters
 
