@@ -4,12 +4,11 @@ import { RadioButton } from "../RadioButton/RadioButton"
 import { useRouter } from 'next/navigation'
 import { Dropdown, DropdownProps, Icon } from "semantic-ui-react"
 import styles from './Form.module.css'
-import { Categories } from "@/utils/getImages"
+import { Categories, Category } from "@/utils/types"
 
 interface FormProps {
     categories: Categories
 }
-export type Category = 'band' | 'place' | 'city' | 'genre'
 
 export const Form: FC<FormProps> = ({categories}) => {
     const [radioBtnValue, setRadioBtnValue] = useState<Category>('band')
@@ -41,7 +40,7 @@ export const Form: FC<FormProps> = ({categories}) => {
         return arr
     }
 
-    const getAppropiateDataFromRadioBtn = (value: Category) => categories[value]
+    const getAppropriateDataFromRadioBtn = (value: Category) => categories[value]
 
     const handleOpenForm = () => setIsFormOpen(!isFormOpen)
     return (
@@ -53,7 +52,7 @@ export const Form: FC<FormProps> = ({categories}) => {
                         fluid
                         search
                         selection
-                        options={convertToDropdownData(getAppropiateDataFromRadioBtn(radioBtnValue))}
+                        options={convertToDropdownData(getAppropriateDataFromRadioBtn(radioBtnValue))}
                         onChange={handleChange}
                         disabled={!isFormOpen}
                     />

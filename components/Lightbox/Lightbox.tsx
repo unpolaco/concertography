@@ -15,7 +15,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
   const [isPaused, setIsPaused] = useState(false)
 
   const handleSetDuration = (duration: number) => setDuration(duration)
-  const handlesetIsPaused = () => setIsPaused(!isPaused)
+  const handleSetIsPaused = () => setIsPaused(!isPaused)
 
   let timeoutRef = useRef<NodeJS.Timeout | null>(null)
   let imageStyle = 'styles.imageOnLoading'
@@ -33,7 +33,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
         return goBack(currentIndex)
       case ' ':
         event.preventDefault()
-        return handlesetIsPaused()
+        return handleSetIsPaused()
       default:
         break;
     }
@@ -96,7 +96,7 @@ export const Lightbox: FC<LightboxProps> = ({ imagePaths }) => {
       <button className={`${styles.button} ${styles.buttonRight}`} onClick={() => goForward(currentIndex)} disabled={isButtonDisabled('next')}>
         <Icon name='chevron right' size='huge' />
       </button>
-      <PlayButtons isPaused={isPaused} duration={duration} setDuration={handleSetDuration} setIsPaused={handlesetIsPaused} />
+      <PlayButtons isPaused={isPaused} duration={duration} setDuration={handleSetDuration} setIsPaused={handleSetIsPaused} />
     </div>
   )
 }

@@ -1,7 +1,8 @@
-import { Category } from "@/components/Form/Form"
 import { Lightbox } from "@/components/Lightbox/Lightbox"
 import { NavBar } from "@/components/NavBar/NavBar"
-import { Image as ImageType, getResults } from "@/utils/getImages"
+import { categories } from "@/utils/consts"
+import { getResults } from "@/utils/getImages"
+import { Category, Image as ImageType } from "@/utils/types"
 
 interface Path {
     category: Category
@@ -10,7 +11,6 @@ interface Path {
 
 export async function generateStaticParams() {
     const { results } = await getResults();
-    const categories: Category[] = ['band', 'place', 'city', 'genre'];
     const params: Path[] = [];
 
     categories.forEach((category) => {
@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: Path }) {
     const filteredImagePaths = getFilteredImagePaths(params.category as Category, params.search, images)
     return (
         <>
-            <NavBar about home/>
+            <NavBar about home />
             <Lightbox imagePaths={filteredImagePaths} />
         </>
     )

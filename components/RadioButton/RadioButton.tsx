@@ -1,6 +1,7 @@
 import { FC } from "react"
-import { Category } from "../Form/Form"
 import styles from './RadioButton.module.css'
+import { Category } from "@/utils/types"
+import { categories } from "@/utils/consts"
 
 interface RadioButtonProps {
     onChange: (value: Category) => void
@@ -8,7 +9,6 @@ interface RadioButtonProps {
 }
 
 export const RadioButton: FC<RadioButtonProps> = ({ onChange, radioBtnValue }) => {
-    const categories: Category[] = ['band', 'place', 'city', 'genre']
     const isChecked = (value: string) => value === radioBtnValue
     const radioHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value as Category
